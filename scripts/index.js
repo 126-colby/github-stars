@@ -2,7 +2,7 @@ import process from 'node:process'
 import fs from 'fs-extra'
 import { $fetch } from 'ofetch'
 
-if (!process.env.GITHUB_TOKEN) {
+if (!process.env.GH_TOKEN) {
   throw new Error('GITHUB_TOKEN is not set')
 }
 
@@ -10,7 +10,7 @@ async function getReadMe(repo) {
   console.log(`Getting readme for ${repo.full_name}`)
   return $fetch(`https://api.github.com/repos/${repo.full_name}/readme`, {
     headers: {
-      'authorization': `Bearer ${process.env.GITHUB_TOKEN}`,
+      'authorization': `Bearer ${process.env.GH_TOKEN}`,
       'accept': 'application/vnd.github.raw+json',
       'user-agent': 'github-stars',
     },
@@ -31,7 +31,7 @@ async function getStaredRepos() {
         per_page: perPage,
       },
       headers: {
-        'authorization': `Bearer ${process.env.GITHUB_TOKEN}`,
+        'authorization': `Bearer ${process.env.GH_TOKEN}`,
         'user-agent': 'github-stars',
       },
       retry: 3,
